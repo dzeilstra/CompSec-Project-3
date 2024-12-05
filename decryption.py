@@ -18,5 +18,3 @@ for i in range(109583):
     # Read the encrypted file as a binary using RB mode (how to read a Python file in binary)
     result = decryptor.update("PLACEHOLDER") + decryptor.finalize()
     print(result)
-
-    # Test
