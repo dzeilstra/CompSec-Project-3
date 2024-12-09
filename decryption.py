@@ -30,16 +30,33 @@ for word in words:
     list2.append(word)
 
 print(list2)
+print(len(list2))
 
 for word in list2:
     # Then pad them out if they are less than 16 chars and truncate if longer
     # Then once padded satisfactorily, use .encode() to convert the string object into a byte string
     # Then I can use it as a key
 
+    #complete = complete.encode()
+
     key = word.encode()
     iv = b"0"*16
     cipher = Cipher(algorithms.AES128(key), modes.CBC(iv))
     decryptor = cipher.decryptor()
     # Read the encrypted file as a binary using RB mode (how to read a Python file in binary)
-    #result = decryptor.update("PLACEHOLDER") + decryptor.finalize()
-    #print(result)
+    
+    with open('encrypted2.txt', 'rb') as file:
+        bin_data = file.read()
+
+    #print(bin_data)
+
+    result = decryptor.update(bin_data) + decryptor.finalize()
+    #result = result.decode('ANSI')
+    
+    if b"the" in result:
+        print(result)
+        print(word)
+        print(key)
+    
+    #with open("output.txt", "w") as decrypted:
+    #    decrypted.write(result)
